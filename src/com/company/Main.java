@@ -3,26 +3,30 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	System.out.println(Main.duplicateCount("Hello"));
+	System.out.println(Main.duplicateCount("aabbcde"));
     }
     public static int duplicateCount(String text) {
-        char[] textArray;
-        char[] arrayNoDups = new char[] {};
-        int duplicates = 0, dups = 0, stop = 0;
-        textArray = text.toLowerCase().toCharArray();
-        for(int i = 0; i <= textArray.length; i++){
-            while(dups <= arrayNoDups.length){
-                if(arrayNoDups[dups] == textArray[i])
-                    stop = 1;
-                    dups = dups + 1;
-                    for(int f = 1; f <= textArray.length; f++){
-                        if(textArray[i] == textArray[f] && stop == 0) {
-                            duplicates = duplicates + 1;
-                            arrayNoDups[dups] = textArray[i];
-                        }
+        int duplicates = 0;
+        text = text.toLowerCase();
+        String textArray[] = text.split("");
+        for(int i = 0; i < textArray.length; i++){
+            for(int f = i + 1; f < textArray.length; f++){
+                if(i == -1) {
+                    i = 0;
+                    f = 1;
+                }
+                if(textArray[i].equals(textArray[f])) {
+                    duplicates = duplicates + 1;
+                    text = text.replace(textArray[i], "");
+                    textArray = text.split("");
+                    if (i != 0){
+                        i = i - 1;
+                    }else{
+                        i = -1;
                     }
                 }
             }
-        return duplicates
+        }
+        return duplicates;
     }
 }
